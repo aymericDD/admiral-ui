@@ -4,13 +4,13 @@ import { FormsModule,
          ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule, JsonpModule }     from '@angular/http';
 
-import './rxjs-operators';
+import '../operators/rxjs-operators';
 
 import { AppComponent }          from './app.component';
-import { LoginComponent }        from './login.component';
-import { UserService }           from './user.service';
-import { ApiService }            from './api.service';
-import { LoggedInGuard }         from './logged-in.guard';
+import { LoginComponent }        from '../login/login.component';
+import { UserService }           from '../user/user.service';
+import { ApiService }            from '../api/api.service';
+import { LoggedInGuard }         from '../guard/logged-in.guard';
 
 import { routing }               from './app.routing';
 

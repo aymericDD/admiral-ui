@@ -5,13 +5,13 @@ import { FormBuilder,
          Validators, 
          FormGroup }     from '@angular/forms';
 
-import { UserService }   from './user.service';
+import { UserService }   from '../user/user.service';
 
-import './rxjs-operators';
+import '../operators/rxjs-operators';
 
 @Component({
   selector: 'login',
-  templateUrl: 'app/login.component.html',
+  templateUrl: 'app/login/login.component.html',
 })
 export class LoginComponent {
 
@@ -28,6 +28,12 @@ export class LoginComponent {
     });
   }
 
+  ngOnInit() { 
+    if(this.userService.isLoggedIn()) {
+      this.router.navigate(['']);
+    }
+  }
+
   onSubmit(email, password) {
     this.userService.login(email, password).subscribe((result) => {
       if (result) {
@@ -38,10 +44,7 @@ export class LoginComponent {
 
   doLogin(event) {
     event.preventDefault();
-    // Show the value of the form
     var formData = this.loginForm.value;
-    // { email: 'blah@blah.net', password: 'imnottelling1' }
-
     this.onSubmit(formData.email, formData.password);
   }
 }

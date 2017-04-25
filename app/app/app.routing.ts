@@ -1,14 +1,15 @@
 import { ModuleWithProviders }  from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { LoginComponent } from './login.component';
+import { LoginComponent } from '../login/login.component';
 import { AppComponent } from './app.component';
-import { LoggedInGuard } from './logged-in.guard';
+import { LoggedInGuard } from '../guard/logged-in.guard';
 
 const appRoutes: Routes = [
   {
     path: '',
-    component: AppComponent
+    component: AppComponent,
+    canActivate: [LoggedInGuard]
   },
   {
     path: 'login',

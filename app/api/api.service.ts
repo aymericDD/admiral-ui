@@ -1,9 +1,9 @@
 import { Injectable }    from '@angular/core';
 import { Http, Headers } from '@angular/http';
 
-import { User } 		 from './user';
+import { User } 		 from '../user/user';
 
-import './rxjs-operators';
+import '../operators/rxjs-operators';
 
 @Injectable()
 export class ApiService {
@@ -14,7 +14,7 @@ export class ApiService {
 
 	constructor(http: Http) {
 		this.http   = http;
-		this.domain = "http://localhost:3000";
+		this.domain = "http://localhost:3002";
 	}
 
 	setUser(user: User) {
@@ -26,15 +26,13 @@ export class ApiService {
 	}
 
 	createAuthorizationHeader(headers:Headers) {
-		headers.append('Authorization', 'Basic ' +
-		  btoa(this.user.name + ':' + this.user.password)); 
+		headers.append('Authorization', 'Basic ' + btoa(this.user.name + ':' + this.user.password)); 
 		headers.append("Content-Type", "application/x-www-form-urlencoded");
 	}
 
 	get(url) {
 		let headers  = new Headers();
 		this.createAuthorizationHeader(headers);
-		console.log(headers);
 		let finalUrl = this.domain + url;
 		return this.http.get(finalUrl, {
 		  headers: headers
@@ -43,7 +41,9 @@ export class ApiService {
 
 	post(url, data, headers:Headers) {
 		this.createAuthorizationHeader(headers);
-		return this.http.post(this.domain + url, data, {
+		let finalUrl = this.domain + url;
+		let finalUrl = this.domain + url;
+		return this.http.post(this.finalUrl, data, {
 		  headers: headers
 		});
 	}

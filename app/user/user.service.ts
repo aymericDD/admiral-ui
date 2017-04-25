@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 
-import { ApiService } from './api.service'
+import { ApiService } from '../api/api.service'
 import { User }       from './user';
 
 @Injectable()
@@ -10,6 +10,8 @@ export class UserService {
   private loggedIn = false;
 
   private user;
+
+  private api;
 
   constructor(private api: ApiService) {
     this.loggedIn = !!localStorage.getItem('auth_token');
@@ -23,15 +25,15 @@ export class UserService {
 
     this.api.setUser(user);
 
-    return this.api.get('/version')
+    return this.api.get('/v1/token')
       .map(res => res.json())
       .map((res) => {
-        alert('Alllééé');
-        if (res.success) {
-          localStorage.setItem('auth_token', res.auth_token);
+        if (res.token) {
+          localStorage.setItem('auth_token', res.token);
           this.loggedIn = true;
+          return res.token;
         }
-        return res.success;
+        return false;
       });
   }
   
